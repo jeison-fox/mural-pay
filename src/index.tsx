@@ -1,15 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Theme } from "@radix-ui/themes";
+import { CustomerProvider } from "contexts/CustomerContext";
+import Main from "Main";
+import queryClient from "api/queryClient";
+import reportWebVitals from "reportWebVitals";
+
+import "@radix-ui/themes/styles.css";
+import "styles/base.css";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <Theme accentColor="violet" appearance="dark">
+        <CustomerProvider>
+          <Main />
+        </CustomerProvider>
+      </Theme>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
